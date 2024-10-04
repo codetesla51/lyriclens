@@ -22,4 +22,4 @@ Only backend functionality is currently completed. The frontend is yet to be imp
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/lyriclens.git
+   git clone https://github.com/codetesla51/lyriclens.git

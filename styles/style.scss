@@ -1,0 +1,464 @@
+@import "_media-queries.scss";
+
+$primary-color: #1de760;
+$primary-second-color: #1db954;
+$secondary-color: #242425;
+$text-color: #fff;
+$background-color: #121212;
+$white-color: #fff;
+$gray-color: #666;
+$error-color: rgba(227, 51, 6, 0.88);
+$warning-color: rgba(226, 200, 31, 0.898);
+$big-padding: 1em;
+$small-padding: 0.5em;
+$curve-radius: 8px;
+$round-radius: 30px;
+$circle-radius: 50%;
+$base-font-size: 16px;
+$base-font-family: regular;
+$bold-font: bold-font;
+$special-font: spe-font;
+
+@mixin font-size($size, $line-height, $family, $color) {
+    font-size: #{$size}px;
+    font-size: #{($size / $base-font-size)}rem;
+    line-height: #{$line-height};
+    font-family: $family;
+    color: $color;
+}
+
+@font-face {
+    font-family: regular;
+    src: url("../assets/fonts/Ubuntu-M.ttf");
+}
+
+@font-face {
+    font-family: bold-font;
+    src: url("../assets/fonts/Ubuntu-B.ttf");
+}
+
+@font-face {
+    font-family: spe-font;
+    src: url("../assets/fonts/VanillaExtractRegular.ttf");
+}
+
+body {
+    background: $background-color;
+    color: $text-color;
+}
+
+%flx-style {
+    display: flex;
+    align-items: center;
+}
+
+%section-styles {
+    height: 100%;
+    padding: 100px 2%;
+    position: relative;
+}
+
+.nav {
+    padding: $big-padding;
+    background: $secondary-color;
+    border-radius: $curve-radius;
+
+    .content {
+        @extend %flx-style;
+        justify-content: space-between;
+
+        .logo {
+            @include font-size(20px, 1, $special-font, $primary-second-color);
+        }
+
+        .side {
+            @include font-size(28px, 1, $special-font, $text-color);
+        }
+    }
+}
+
+.main-content {
+    @extend %section-styles;
+
+    .search_query {
+        @extend %flx-style;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        background: transparent;
+        padding: $small-padding;
+        flex-direction: column;
+
+        .input_field {
+            @extend %flx-style;
+            gap: 1em;
+            @include respond-to("mobile") {
+                margin-right: 0.8em;
+            }
+
+            border-radius: $curve-radius;
+            padding: $big-padding;
+            background: $secondary-color;
+            justify-content: center;
+
+            .mic-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: $circle-radius;
+                @extend %flx-style;
+                justify-content: center;
+                background: $primary-color;
+
+                i {
+                    @include font-size(
+                        24px,
+                        1,
+                        $special-font,
+                        $background-color
+                    );
+                }
+
+                @include respond-to("mobile") {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            input {
+                width: 500px;
+                height: 50px;
+                padding: 0 60px 0 30px;
+                background: $background-color;
+                border: none;
+                border-radius: $curve-radius;
+                font-size: 15px;
+                color: $text-color;
+                &::placeholder {
+                    @include font-size(
+                        14px,
+                        1,
+                        $base-font-family,
+                        $primary-color
+                    );
+                    text-transform: capitalize;
+                }
+
+                @include respond-to("mobile") {
+                    width: 140px;
+                    height: 45px;
+                }
+            }
+        }
+    }
+
+    .search_results {
+        background: $background-color;
+        padding: $big-padding;
+        overflow-y: scroll;
+        margin-top: -4em;
+        height: auto;
+    }
+    .res {
+        @extend %flx-style;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 3em;
+    }
+}
+
+.audio-player {
+    @extend %flx-style;
+    @include respond-to("mobile") {
+        gap: 5px;
+    }
+    gap: 19px;
+    background-color: $background-color;
+    padding: $small-padding;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.audio-controls {
+    @extend %flx-style;
+    gap: 10px;
+}
+
+.play-button,
+.pause-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    @extend %flx-style;
+    color: $primary-color;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="range"] {
+    -webkit-appearance: none; /* Removes default styling in WebKit browsers */
+    width: 90px;
+    height: 5px;
+    background: $gray-color; /* Background color of the track */
+    border-radius: $curve-radius; /* Rounded corners for the track */
+    outline: none; /* Removes default outline */
+    opacity: 0.7; /* Slightly transparent track */
+    transition: opacity 0.2s; /* Smooth transition on hover */
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Removes default styling in WebKit browsers */
+        width: 15px;
+        height: 15px;
+        background: $primary-color; /* Thumb background color */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        border-radius: $circle-radius; /* Rounded thumb */
+        border: 2px solid $secondary-color; /* Thumb border color */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+    }
+
+    &::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        background: $primary-color; /* Thumb background color */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        border-radius: $circle-radius; /* Rounded thumb */
+        border: 2px solid $secondary-color; /* Thumb border color */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+    }
+
+    &::-ms-thumb {
+        width: 15px;
+        height: 15px;
+        background: $primary-color; /* Thumb background color */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        border-radius: $circle-radius; /* Rounded thumb */
+        border: 2px solid $secondary-color; /* Thumb border color */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+    }
+
+    &:hover {
+        opacity: 1; /* Fully opaque on hover */
+    }
+}
+
+.time {
+    font-size: 14px;
+    color: $gray-color;
+}
+
+.mute-button {
+    font-size: 20px;
+    cursor: pointer;
+    color: $primary-color;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: $primary-second-color;
+    }
+}
+
+.music-card {
+    flex: 1 1 30em;
+
+    background-color: #1c1c1c;
+    border-radius: 15px;
+    width: 500px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-10px);
+    }
+
+    .music-image {
+        width: 100%;
+
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    }
+
+    .music-info {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .music-name {
+            @include font-size(22px, 1, $bold-font, $primary-color);
+        }
+
+        .artist-name,
+        .genre,
+        .release-date {
+            @include font-size(16px, 1, $base-font-family, $text-color);
+        }
+        .genre {
+            font-style: italic;
+            @include font-size(16px, 1, $base-font-family, $text-color);
+        }
+
+        .lyrics-link {
+            text-align: center;
+            margin-top: 15px;
+
+            a {
+                color: $primary-second-color;
+                text-decoration: none;
+                font-weight: bold;
+                font-family: $base-font-family;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .music-card {
+        width: 90%;
+    }
+}
+
+.loader {
+    position: fixed;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.loader.active {
+    background: red;
+}
+.error {
+    font-family: $bold-font;
+    font-size: 18px;
+    color: rgba(246, 42, 74, 0.898);
+    text-align: center;
+}
+.warn {
+    font-family: $bold-font;
+    font-size: 18px;
+    color: $warning-color;
+    text-align: center;
+}
+.dot-spinner {
+    --uib-size: 3.8rem;
+    --uib-speed: 0.9s;
+    --uib-color: #1de760;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--uib-size);
+    width: var(--uib-size);
+}
+
+.dot-spinner__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+}
+
+.dot-spinner__dot::before {
+    content: "";
+    height: 20%;
+    width: 20%;
+    border-radius: 50%;
+    background-color: var(--uib-color);
+    transform: scale(0);
+    opacity: 0.5;
+    animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
+}
+
+.dot-spinner__dot:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.dot-spinner__dot:nth-child(2)::before {
+    animation-delay: calc(var(--uib-speed) * -0.875);
+}
+
+.dot-spinner__dot:nth-child(3) {
+    transform: rotate(90deg);
+}
+
+.dot-spinner__dot:nth-child(3)::before {
+    animation-delay: calc(var(--uib-speed) * -0.75);
+}
+
+.dot-spinner__dot:nth-child(4) {
+    transform: rotate(135deg);
+}
+
+.dot-spinner__dot:nth-child(4)::before {
+    animation-delay: calc(var(--uib-speed) * -0.625);
+}
+
+.dot-spinner__dot:nth-child(5) {
+    transform: rotate(180deg);
+}
+
+.dot-spinner__dot:nth-child(5)::before {
+    animation-delay: calc(var(--uib-speed) * -0.5);
+}
+
+.dot-spinner__dot:nth-child(6) {
+    transform: rotate(225deg);
+}
+
+.dot-spinner__dot:nth-child(6)::before {
+    animation-delay: calc(var(--uib-speed) * -0.375);
+}
+
+.dot-spinner__dot:nth-child(7) {
+    transform: rotate(270deg);
+}
+
+.dot-spinner__dot:nth-child(7)::before {
+    animation-delay: calc(var(--uib-speed) * -0.25);
+}
+
+.dot-spinner__dot:nth-child(8) {
+    transform: rotate(315deg);
+}
+
+.dot-spinner__dot:nth-child(8)::before {
+    animation-delay: calc(var(--uib-speed) * -0.125);
+}
+
+@keyframes pulse0112 {
+    0%,
+    100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

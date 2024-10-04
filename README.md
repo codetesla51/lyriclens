@@ -1,6 +1,6 @@
 # LyricLens 🎶
 
-LyricLens is a web application that allows users to search for music by providing descriptions, lyrics, or frequently used words in a song. It integrates with the **Spotify API** to fetch song previews and other details, as well as the **Genius API** to display full lyrics URLs. Though still in development, the backend logic using raw PHP OOP is functional.
+LyricLens is a php script that allows users to search for music by providing descriptions, lyrics, or frequently used words in a song. It integrates with the **Spotify API** to fetch song previews and other details, as well as the **Genius API** to display full lyrics URLs. Though still in development, the backend logic using raw PHP OOP is functional.
 
 ## Features
 
